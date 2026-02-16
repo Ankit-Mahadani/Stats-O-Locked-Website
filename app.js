@@ -97,6 +97,7 @@ async function fetchMockData() {
     const teamGrid = document.getElementById('team-grid');
     if (teamGrid) {
         const mockTeam = [
+            { name: "Shivam Waghule", role: "President", img: "pics/shivam.jpeg" },
             { name: "Ankit Verma", role: "President", img: "" },
             { name: "Meera Reddy", role: "Research Lead", img: "" },
             { name: "Kabir Kohl", role: "Tech Lead", img: "" },
@@ -105,7 +106,7 @@ async function fetchMockData() {
 
         teamGrid.innerHTML = mockTeam.map(m => `
             <div class="team-card">
-                <div class="team-img" style="background-color: #222;"></div>
+                <div class="team-img" style="${m.img ? `background-image: url('${m.img}'); background-size: cover; background-position: center;` : 'background-color: #222;'}"></div>
                 <h3>${m.name}</h3>
                 <span class="role">${m.role}</span>
             </div>
