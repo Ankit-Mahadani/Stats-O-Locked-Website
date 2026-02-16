@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Stats-O-Locked</title>
+    <title>Contact | Stats-O-Locked</title>
     <link rel="stylesheet" href="style.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
@@ -14,21 +14,6 @@
 </head>
 
 <body>
-    <!-- Tech Intro Overlay -->
-    <div id="intro-overlay">
-        <div class="intro-content">
-            <div class="logo-wrapper">
-                <img src="logo.jpeg" alt="Stats-O-Locked Logo" class="intro-logo">
-                <div class="scan-line"></div>
-            </div>
-            <h1 class="intro-title" data-text="STATS-O-LOCKED">STATS-O-LOCKED</h1>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-            <p class="intro-status">INITIALIZING SYSTEM...</p>
-        </div>
-    </div>
-
     <canvas id="bg-canvas"></canvas>
 
     <nav class="navbar">
@@ -36,34 +21,35 @@
             <a href="index.html" class="logo">SOL<span class="highlight">.</span></a>
             <div class="hamburger"><span></span><span></span><span></span></div>
             <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="events.html">Events</a></li>
-
                 <li><a href="team.html">Team</a></li>
-                <li><a href="contact.html" class="btn-contact">Contact</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <section class="hero active">
-        <div class="hero-content">
-            <h1 class="glitch-text" data-text="Stats-O-Locked">Stats-O-Locked</h1>
-            <h2 class="subtitle">VIT Bhopal Technical Club</h2>
-            <p class="hero-desc">
-                Stats-O-Locked is a technical community at VIT Bhopal focused on Statistics, Data Science, Artificial
-                Intelligence, and Machine Learning.
-                <br><br>
-                Our mission is to build a long-term ecosystem of learning, leadership, research, and practical exposure.
-            </p>
-            <div class="cta-group">
-                <a href="contact.html" class="btn btn-primary">Join Club</a>
-                <a href="events.html" class="btn btn-secondary">Explore Events</a>
-            </div>
+    <section class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
         </div>
     </section>
-
-
 
     <footer>
         <div class="container">
@@ -85,7 +71,6 @@
     </footer>
 
     <script src="background.js"></script>
-    <script src="supabase.js"></script>
     <script src="app.js"></script>
 </body>
 

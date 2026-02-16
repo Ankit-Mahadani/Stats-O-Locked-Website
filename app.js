@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Tech Intro Animation
+    const introOverlay = document.getElementById('intro-overlay');
+    if (introOverlay) {
+        setTimeout(() => {
+            introOverlay.classList.add('hidden');
+            // Optional: Remove from DOM after transition to free up resources
+            setTimeout(() => {
+                introOverlay.style.display = 'none';
+            }, 800);
+        }, 3000); // 3 seconds intro
+    }
+
     // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
