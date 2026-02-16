@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team | Stats-O-Locked</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">SOL<span class="highlight">.</span></a>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="events.html">Events ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="events.html#current">Current Events</a></li>
+                        <li><a href="events.html#register">Register</a></li>
+                        <li><a href="leaderboard.html">Live Leaderboard</a></li>
+                        <li><a href="events.html#past">Past Events</a></li>
+                    </ul>
+                </li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="team.html" class="active">Team</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="#contact" class="btn-contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid" id="team-grid">
+                <!-- Javascript will populate this -->
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Stats-O-Locked</h3>
+                    <p>Innovating the Future with Data.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <a href="#">Instagram</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Discord</a>
+                    <a href="mailto:sol@vitbhopal.ac.in">Email Us</a>
+                </div>
+            </div>
+            <div class="copyright">&copy; 2026 Stats-O-Locked.</div>
+        </div>
+    </footer>
+
+    <script src="background.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

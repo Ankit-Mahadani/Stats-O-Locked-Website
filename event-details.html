@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTRL + LOL | Event Details</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">SOL<span class="highlight">.</span></a>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="events.html" class="active">Events ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="events.html">All Events</a></li>
+                    </ul>
+                </li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="team.html">Team</a></li>
+                <!-- Leaderboard removed from main nav, now inside events -->
+                <li><a href="#contact" class="btn-contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section event-header-section">
+        <div class="container">
+            <div class="event-header">
+                <span class="status-badge live">Live Now</span>
+                <h1 class="event-title">CTRL + LOL</h1>
+                <p class="event-brief">An online meme creation competition engaging creativity, humor, and digital
+                    expression.</p>
+            </div>
+
+            <!-- Event Internal Navigation -->
+            <div class="event-tabs">
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="guidelines">Guidelines</button>
+                <button class="tab-btn" data-tab="leaderboard">Leaderboard</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Contents -->
+    <section class="section event-content-section">
+        <div class="container">
+
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="content-grid">
+                    <div class="info-block">
+                        <h2>Description</h2>
+                        <p>Stats-O-Locked brings you "CTRL + LOL", a unique meme-making contest. Unleash your wit and
+                            humor to create memes that resonate with the tech and student community.</p>
+                    </div>
+                    <div class="info-sidebar">
+                        <div class="sidebar-item">
+                            <span class="label">Timeline</span>
+                            <span class="value">20th Feb — 26th Feb</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="label">Scoring</span>
+                            <span class="value">50% Likes / 50% Judge</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guidelines Tab -->
+            <div id="guidelines" class="tab-content">
+                <h2>Rules & Guidelines</h2>
+                <ul class="guidelines-list">
+                    <li>1. Memes must be original content. Plagiarism will lead to disqualification.</li>
+                    <li>2. Content must be respectful and follow university code of conduct. No offensive material.</li>
+                    <li>3. Submissions must be in JPG or PNG format.</li>
+                    <li>4. Participants can submit up to 3 memes.</li>
+                    <li>5. Voting closes on 26th Feb at 11:59 PM.</li>
+                </ul>
+            </div>
+
+            <!-- Leaderboard Tab -->
+            <div id="leaderboard" class="tab-content">
+                <h2>Live Leaderboard</h2>
+                <p class="mb-4">Real-time standings based on community engagement and judge scores.</p>
+                <div class="table-container glass-panel">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Participant</th>
+                                <th>Likes (10pts)</th>
+                                <th>Judge Score</th>
+                                <th>Total Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <!-- Populated by JS -->
+                            <tr>
+                                <td colspan="5" class="loading-text">Loading Leaderboard...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Register Tab -->
+            <div id="register" class="tab-content">
+                <h2>Register for CTRL + LOL</h2>
+                <form class="register-form glass-panel">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Registration Number</label>
+                        <input type="text" placeholder="Updates will be sent here">
+                    </div>
+                    <div class="form-group">
+                        <label>Email ID (VIT)</label>
+                        <input type="email" placeholder="@vitbhopal.ac.in">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Registration</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Stats-O-Locked</h3>
+                    <p>Innovating the Future with Data.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <a href="#">Instagram</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Discord</a>
+                    <a href="mailto:sol@vitbhopal.ac.in">Email Us</a>
+                </div>
+            </div>
+            <div class="copyright">&copy; 2026 Stats-O-Locked.</div>
+        </div>
+    </footer>
+
+    <script src="background.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
