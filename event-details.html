@@ -10,6 +10,7 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 
@@ -58,8 +59,29 @@
                 <div class="content-grid">
                     <div class="info-block">
                         <h2>Description</h2>
-                        <p>Stats-O-Locked brings you "CTRL + LOL", a unique meme-making contest. Unleash your wit and
-                            humor to create memes that resonate with the tech and student community.</p>
+                        <p>Stats-O-Locked presents <strong>CTRL + LOL</strong>, the ultimate meme-making showdown! 🎭💻
+                        </p>
+                        <p style="margin-top: 15px;">Prepare to debug your depression and compile some laughter as we
+                            celebrate the lighter side of technology and student life. Whether it’s the pain of a
+                            missing semicolon, the chaos of placement season, or the eternal struggle between you and
+                            your code, we want to see it all meme-ified!</p>
+
+                        <h3 style="margin-top: 25px; font-size: 1.2rem; color: var(--primary-color);">Why Participate?
+                        </h3>
+                        <ul style="list-style: disc; margin-left: 20px; color: var(--text-muted); margin-top: 10px;">
+                            <li style="margin-bottom: 8px;"><strong>Showcase Your Wit:</strong> Prove that you're the
+                                funniest coder in the room.</li>
+                            <li style="margin-bottom: 8px;"><strong>Relatable Content:</strong> Create memes that every
+                                techie understands and vibes with.</li>
+                            <li><strong>Win Big:</strong> Top memes will be featured on our official pages, and winners
+                                get exciting rewards!</li>
+                        </ul>
+
+                        <p style="margin-top: 20px; font-weight: bold; color: #fff;">So, <code
+                                style="background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 4px;">git commit</code>
+                            to the fun, <code
+                                style="background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 4px;">push</code>
+                            your creativity, and let the meme wars begin! 🚀</p>
                     </div>
                     <div class="info-sidebar">
                         <div class="sidebar-item">
@@ -98,20 +120,105 @@
             <!-- Register Tab -->
             <div id="register" class="tab-content">
                 <h2>Register for CTRL + LOL</h2>
-                <form class="register-form glass-panel">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Enter your name">
+                <form id="ctrl-lol-form" class="register-form glass-panel">
+
+                    <!-- Basic Details -->
+                    <div class="form-section">
+                        <h3>1. Basic Details</h3>
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" name="full_name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" name="email" placeholder="Enter a valid email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" name="phone_number" placeholder="Enter your contact number" required>
+                        </div>
+                        <div class="form-group">
+                            <label>College Name *</label>
+                            <input type="text" name="college_name" placeholder="Enter your college/university name"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label>Course / Branch *</label>
+                            <input type="text" name="course_branch" placeholder="e.g., B.Tech Computer Science"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label>Year of Study *</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="year_of_study" value="1st Year" required> 1st
+                                    Year</label>
+                                <label><input type="radio" name="year_of_study" value="2nd Year"> 2nd Year</label>
+                                <label><input type="radio" name="year_of_study" value="3rd Year"> 3rd Year</label>
+                                <label><input type="radio" name="year_of_study" value="4th Year"> 4th Year</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Registration Number</label>
-                        <input type="text" placeholder="Updates will be sent here">
+
+                    <!-- Participation Details -->
+                    <div class="form-section">
+                        <h3>2. Participation Details</h3>
+                        <div class="form-group">
+                            <label>Have you participated in meme competitions before? *</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="participated_before" value="Yes" required> Yes</label>
+                                <label><input type="radio" name="participated_before" value="No"> No</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Meme Category / Theme Selected *</label>
+                            <select name="meme_category" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <option value="Tech Life">Tech Life</option>
+                                <option value="Coding Struggles">Coding Struggles</option>
+                                <option value="College Chaos">College Chaos</option>
+                                <option value="Placement Pressure">Placement Pressure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Social Media Handle (Optional)</label>
+                            <input type="text" name="social_media" placeholder="Instagram, Twitter, etc. (Optional)">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Email ID (VIT)</label>
-                        <input type="email" placeholder="@vitbhopal.ac.in">
+
+                    <!-- Payment Section -->
+                    <div class="form-section">
+                        <h3>3. Payment</h3>
+                        <div class="payment-qr" style="text-align: center; margin-bottom: 20px;">
+                            <img src="upi.png" alt="UPI QR Code"
+                                style="max-width: 200px; border-radius: 10px; border: 2px solid var(--primary-color);">
+                            <p style="margin-top: 10px; color: var(--text-muted);">Scan to Pay via UPI</p>
+                        </div>
+                        <div class="form-group">
+                            <label>UPI Transaction ID *</label>
+                            <input type="text" name="transaction_id" placeholder="Enter UPI Transaction ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Transaction Screenshot *</label>
+                            <input type="file" name="transaction_screenshot" accept="image/*" required>
+                            <small style="color: var(--text-muted); display: block; margin-top: 5px;">Upload a
+                                screenshot of your payment (Max 5MB)</small>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit Registration</button>
+
+                    <!-- Consent Section -->
+                    <div class="form-section">
+                        <h3>4. Consent</h3>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" name="consent" required>
+                                I agree to follow all event rules and allow my meme to be displayed publicly on the
+                                official event website. *
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="submit-btn">Submit Registration</button>
+                    <p id="form-status" style="margin-top: 15px; font-weight: bold;"></p>
                 </form>
             </div>
 
@@ -127,9 +234,8 @@
                 </div>
                 <div class="footer-links">
                     <h4>Connect</h4>
-                    <a href="#">Instagram</a>
-                    <a href="#">LinkedIn</a>
-                    <a href="#">Discord</a>
+                    <a href="https://www.instagram.com/sol_vitb" target="_blank">Instagram</a>
+                    <a href="https://www.linkedin.com/company/stats-o-locked-club" target="_blank">LinkedIn</a>
                     <a href="mailto:sol@vitbhopal.ac.in">Email Us</a>
                 </div>
             </div>
@@ -138,6 +244,8 @@
     </footer>
 
     <script src="background.js"></script>
+    <script src="supabase.js"></script>
+    <script src="register.js"></script>
     <script src="app.js"></script>
 </body>
 

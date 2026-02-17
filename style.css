@@ -628,7 +628,7 @@ footer {
 /* Event Header */
 .event-header-section {
     padding-top: 150px;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     text-align: center;
 }
 
@@ -743,6 +743,12 @@ footer {
     border-left: 3px solid var(--primary-color);
 }
 
+.event-content-section {
+    padding-top: 40px;
+    min-height: auto;
+    /* Override section min-height if needed */
+}
+
 .register-form {
     max-width: 600px;
     margin: 0 auto;
@@ -819,6 +825,26 @@ footer {
 
 .live-card .card-status {
     color: #ff0055;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.form-group input[type="file"] {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed var(--glass-border);
+    cursor: pointer;
+}
+
+.form-group input[type="file"]:hover {
+    border-color: var(--primary-color);
+    background: rgba(0, 240, 255, 0.05);
 }
 
 .card-details {
