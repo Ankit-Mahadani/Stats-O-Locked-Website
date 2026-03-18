@@ -34,7 +34,8 @@
     <section class="section event-header-section">
         <div class="container">
             <div class="event-header">
-                <span class="status-badge live">Live Now</span>
+                <span class="status-badge"
+                    style="background: rgba(255,255,255,0.1); color: var(--text-muted);">Ended</span>
                 <h1 class="event-title">CTRL + LOL</h1>
                 <p class="event-brief">An online meme creation competition engaging creativity, humor, and digital
                     expression.</p>
@@ -110,116 +111,114 @@
 
             <!-- Leaderboard Tab -->
             <div id="leaderboard" class="tab-content">
-                <h2>Live Leaderboard</h2>
-                <div class="glass-panel" style="text-align: center; padding: 50px;">
-                    <h3 style="color: var(--primary-color); font-size: 2rem;">Coming Soon</h3>
-                    <p style="color: var(--text-muted);">The leaderboard will be live once the event starts.</p>
+                <h2>Final Leaderboard</h2>
+                <div class="glass-panel">
+                    <div class="table-container">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Name</th>
+                                    <th>Instagram Handle</th>
+                                    <th>Registration ID</th>
+                                    <th>Votes</th>
+                                    <th>Badges</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Dhimant Bhardwaj</td>
+                                    <td>@themantish</td>
+                                    <td>24BAI10746</td>
+                                    <td>39</td>
+                                    <td>🥇</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Khushi Gupta</td>
+                                    <td>@khushigupta4883</td>
+                                    <td>N/A outsider</td>
+                                    <td>31</td>
+                                    <td>🥈</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Sahil Yadav, Suvradeep Datta</td>
+                                    <td>@nsfw_yellow, @suvradeep777</td>
+                                    <td>24BCE11280, 25BAI10328</td>
+                                    <td>26</td>
+                                    <td>🥉</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Gauri Srivastava</td>
+                                    <td>@gaurisrivastavaaa</td>
+                                    <td>25BCE10070</td>
+                                    <td>20</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Abhi Srivastava</td>
+                                    <td>@abhiisrivastava_irl</td>
+                                    <td>N/A outsider</td>
+                                    <td>19</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Aniket Kumar Singh</td>
+                                    <td>@lord_falooda</td>
+                                    <td>24BCE11167</td>
+                                    <td>17</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>Bedantika Banerjee</td>
+                                    <td>@thebedanti.07</td>
+                                    <td>25BCE10597</td>
+                                    <td>15</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>Palak, Divyaraj Purohit</td>
+                                    <td>@missmitruka_2612, @_divyaraj_rajpurohit</td>
+                                    <td>25BCE10103, 24BCY10311</td>
+                                    <td>14</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>Supriya Yelgunde, Ashish Kumar Patel, Ansh Gupta, Astle Antony</td>
+                                    <td>@supriyayelgunde, @i52sh_, @anshgupta5066, @astle.antony.33</td>
+                                    <td>24BSA10150, N/A, 24BSA10196, N/A</td>
+                                    <td>13</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>Purvi Gupta, Priya Gulia</td>
+                                    <td>@purvi_guptaa_, @gulia_.priya</td>
+                                    <td>25BAS10040, N/A outsider</td>
+                                    <td>12</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <!-- Register Tab -->
             <div id="register" class="tab-content">
                 <h2>Register for CTRL + LOL</h2>
-                <form id="ctrl-lol-form" class="register-form glass-panel">
-
-                    <!-- Basic Details -->
-                    <div class="form-section">
-                        <h3>1. Basic Details</h3>
-                        <div class="form-group">
-                            <label>Full Name *</label>
-                            <input type="text" name="full_name" placeholder="Enter your full name" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address *</label>
-                            <input type="email" name="email" placeholder="Enter a valid email address" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number *</label>
-                            <input type="tel" name="phone_number" placeholder="Enter your contact number" required>
-                        </div>
-                        <div class="form-group">
-                            <label>College Name *</label>
-                            <input type="text" name="college_name" placeholder="Enter your college/university name"
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <label>Course / Branch *</label>
-                            <input type="text" name="course_branch" placeholder="e.g., B.Tech Computer Science"
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <label>Year of Study *</label>
-                            <div class="radio-group">
-                                <label><input type="radio" name="year_of_study" value="1st Year" required> 1st
-                                    Year</label>
-                                <label><input type="radio" name="year_of_study" value="2nd Year"> 2nd Year</label>
-                                <label><input type="radio" name="year_of_study" value="3rd Year"> 3rd Year</label>
-                                <label><input type="radio" name="year_of_study" value="4th Year"> 4th Year</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Participation Details -->
-                    <div class="form-section">
-                        <h3>2. Participation Details</h3>
-                        <div class="form-group">
-                            <label>Have you participated in meme competitions before? *</label>
-                            <div class="radio-group">
-                                <label><input type="radio" name="participated_before" value="Yes" required> Yes</label>
-                                <label><input type="radio" name="participated_before" value="No"> No</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Meme Category / Theme Selected *</label>
-                            <select name="meme_category" required>
-                                <option value="" disabled selected>Select a category</option>
-                                <option value="Tech Life">Tech Life</option>
-                                <option value="Coding Struggles">Coding Struggles</option>
-                                <option value="College Chaos">College Chaos</option>
-                                <option value="Placement Pressure">Placement Pressure</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Social Media Handle (Optional)</label>
-                            <input type="text" name="social_media" placeholder="Instagram, Twitter, etc. (Optional)">
-                        </div>
-                    </div>
-
-                    <!-- Payment Section -->
-                    <div class="form-section">
-                        <h3>3. Payment</h3>
-                        <div class="payment-qr" style="text-align: center; margin-bottom: 20px;">
-                            <img src="upi.png" alt="UPI QR Code"
-                                style="max-width: 200px; border-radius: 10px; border: 2px solid var(--primary-color);">
-                            <p style="margin-top: 10px; color: var(--text-muted);">Scan to Pay via UPI</p>
-                        </div>
-                        <div class="form-group">
-                            <label>UPI Transaction ID *</label>
-                            <input type="text" name="transaction_id" placeholder="Enter UPI Transaction ID" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Transaction Screenshot *</label>
-                            <input type="file" name="transaction_screenshot" accept="image/*" required>
-                            <small style="color: var(--text-muted); display: block; margin-top: 5px;">Upload a
-                                screenshot of your payment (Max 5MB)</small>
-                        </div>
-                    </div>
-
-                    <!-- Consent Section -->
-                    <div class="form-section">
-                        <h3>4. Consent</h3>
-                        <div class="form-group checkbox-group">
-                            <label>
-                                <input type="checkbox" name="consent" required>
-                                I agree to follow all event rules and allow my meme to be displayed publicly on the
-                                official event website. *
-                            </label>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" id="submit-btn">Submit Registration</button>
-                    <p id="form-status" style="margin-top: 15px; font-weight: bold;"></p>
-                </form>
+                <div class="glass-panel" style="text-align: center; padding: 50px;">
+                    <h3 style="color: var(--primary-color); font-size: 2rem;">Registration Closed</h3>
+                    <p style="color: var(--text-muted);">Thank you to everyone who participated in CTRL + LOL!</p>
+                </div>
             </div>
 
         </div>
