@@ -1,20 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Tech Intro Animation
+    // --- 1. Tech Intro Animation ---
     const introOverlay = document.getElementById('intro-overlay');
     if (introOverlay) {
         setTimeout(() => {
             introOverlay.classList.add('hidden');
-            // Optional: Remove from DOM after transition to free up resources
             setTimeout(() => {
                 introOverlay.style.display = 'none';
             }, 800);
-        }, 3000); // 3 seconds intro
+        }, 3000);
     }
 
-    // Mobile Navigation Toggle
+    // --- 2. Mobile Navigation Toggle ---
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
@@ -22,24 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Highlight Active Link Strategy
+    // --- 3. Highlight Active Link ---
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
     const navLinksList = document.querySelectorAll('.nav-links a');
-
     navLinksList.forEach(link => {
         const href = link.getAttribute('href');
-        // Simple check: if href matches current filename
-        if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+        if (href === currentPath) {
             link.classList.add('active');
-        } else {
-            link.classList.remove('active');
         }
     });
 
+    // --- 4. Particles (Three.js) ---
+    initParticles();
 
-    // Scroll Reveal Animation (Simple Intersection Observer)
-    const revealElements = document.querySelectorAll('.feature-card, .event-showcase, .research-card, .team-card');
-
+    // --- 5. Scroll Reveal ---
+    const revealElements = document.querySelectorAll('.feature-card, .member-card, .tier-section');
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -56,144 +51,112 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(el);
     });
 
-    // Add 'revealed' class style dynamically if not in CSS
     const style = document.createElement('style');
-    style.innerHTML = `
-        .revealed {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
+    style.innerHTML = `.revealed { opacity: 1 !important; transform: translateY(0) !important; }`;
     document.head.appendChild(style);
-
-    // ---- Auth State: Dynamic Navbar ----
-    // Add toast container if not present
-    if (!document.getElementById('toast-container')) {
-        const tc = document.createElement('div');
-        tc.className = 'toast-container';
-        tc.id = 'toast-container';
-        document.body.appendChild(tc);
-    }
-
-    // Check if supabase is available (loaded on all pages)
-    if (typeof supabase !== 'undefined') {
-        const navContainer = document.querySelector('.nav-container');
-        if (navContainer) {
-            // Create auth nav element
-            const authNav = document.createElement('div');
-            authNav.className = 'nav-auth';
-            authNav.id = 'auth-nav';
-            navContainer.appendChild(authNav);
-
-            // Check session and update navbar
-            (async () => {
-                try {
-                    const { data: { session } } = await supabase.auth.getSession();
-                    updateAuthNav(session);
-                } catch (err) {
-                    console.error('Auth check failed:', err);
-                    updateAuthNav(null);
-                }
-            })();
-
-            // Listen for auth state changes
-            supabase.auth.onAuthStateChange((event, session) => {
-                updateAuthNav(session);
-            });
-        }
-    }
-
-    function updateAuthNav(session) {
-        const authNav = document.getElementById('auth-nav');
-        if (!authNav) return;
-
-        if (session && session.user) {
-            const name = session.user.user_metadata?.full_name || session.user.email;
-            const initial = name.charAt(0).toUpperCase();
-            authNav.innerHTML = `
-                <div class="user-avatar" title="${name}">${initial}</div>
-                <button class="nav-logout-btn" id="nav-logout-btn">Logout</button>
-            `;
-            // Attach logout handler
-            document.getElementById('nav-logout-btn').addEventListener('click', async () => {
-                await supabase.auth.signOut();
-                window.location.href = 'index.html';
-            });
-        } else {
-            authNav.innerHTML = `
-                <a href="auth.html" class="nav-auth-btn">Login</a>
-            `;
-        }
-    }
 });
 
-// Mock Data Population (Will be replaced by Supabase fetching)
-async function fetchMockData() {
-    console.log("Fetching mock data...");
+// --- PARTICLES ENGINE ---
+function initParticles() {
+    const canvas = document.getElementById('bg-canvas');
+    if (!canvas) return;
 
-    // Mock Leaderboard
-    const leaderboardBody = document.getElementById('leaderboard-body');
-    if (leaderboardBody) {
-        const mockLeaderboard = [
-            { rank: 1, name: "Aarav Sharma", likes: 45, judgeScore: 88, total: 538 },
-            { rank: 2, name: "Sneha Patel", likes: 30, judgeScore: 92, total: 522 },
-            { rank: 3, name: "Rohan Gupta", likes: 25, judgeScore: 85, total: 460 },
-            { rank: 4, name: "Priya Singh", likes: 40, judgeScore: 78, total: 458 },
-            { rank: 5, name: "Vikram Das", likes: 20, judgeScore: 80, total: 380 }
-        ];
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    
+    // Antialias true rakha hai clear dikhne ke liye
+    const renderer = new THREE.WebGLRenderer({ 
+        canvas: canvas, 
+        alpha: true, 
+        antialias: true 
+    });
 
-        leaderboardBody.innerHTML = mockLeaderboard.map(u => `
-            <tr>
-                <td>#${u.rank}</td>
-                <td>${u.name}</td>
-                <td>${u.likes}</td>
-                <td>${u.judgeScore}</td>
-                <td><strong>${u.total}</strong></td>
-            </tr>
-        `).join('');
+    // Function to handle resize properly
+    function resize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
     }
 
-    // Mock Team
-    const teamGrid = document.getElementById('team-grid');
-    if (teamGrid) {
-        const mockTeam = [
-            { name: "Shivam Waghule", role: "President", img: "pics/shivam.jpeg" },
-            { name: "Ankit Verma", role: "President", img: "" },
-            { name: "Meera Reddy", role: "Research Lead", img: "" },
-            { name: "Kabir Kohl", role: "Tech Lead", img: "" },
-            { name: "Sanya Joy", role: "Event Manager", img: "" }
-        ];
+    window.addEventListener('resize', resize);
+    resize(); // Initial call to set full screen
 
-        teamGrid.innerHTML = mockTeam.map(m => `
-            <div class="team-card">
-                <div class="team-img" style="${m.img ? `background-image: url('${m.img}'); background-size: cover; background-position: center;` : 'background-color: #222;'}"></div>
-                <h3>${m.name}</h3>
-                <span class="role">${m.role}</span>
-            </div>
-        `).join('');
+    const geo = new THREE.BufferGeometry();
+    const count = 1500; 
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count * 3; i++) {
+        pos[i] = (Math.random() - 0.5) * 10;
     }
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+
+    const mat = new THREE.PointsMaterial({ 
+        size: 0.02, 
+        color: 0x00f0ff, 
+        transparent: true, 
+        opacity: 0.6 
+    });
+    
+    const points = new THREE.Points(geo, mat);
+    scene.add(points);
+
+    camera.position.z = 5;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.0008;
+        points.rotation.x += 0.0005;
+        renderer.render(scene, camera);
+    }
+    animate();
 }
 
-// Call data fetch on load
-window.addEventListener('load', fetchMockData);
+// --- TEAM DATA POPULATION (FIXED) ---
+async function fetchData() {
+    // 1. Leaderboard (If exists)
+    const lbBody = document.getElementById('leaderboard-body');
+    if (lbBody) {
+        lbBody.innerHTML = `<tr><td>#1</td><td>Aarav Sharma</td><td>45</td><td>88</td><td><strong>538</strong></td></tr>`;
+    }
 
-// Tab Switching Logic
-document.addEventListener('DOMContentLoaded', () => {
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
+    // 2. Full Team Members List
+    const teamMembers = [
+        // EXECUTIVE BOARD
+        { name: "Shivam Waghule", role: "President", category: "exec", img: "pics/shivam.jpeg" },
+        { name: "Ankit Verma", role: "President", category: "exec", img: "" },
 
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active class from all buttons and contents
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
+        // SECRETARIAT (Ye raha tera missing part)
+        { name: "Meera Reddy", role: "General Secretary", category: "sec", img: "" },
+        { name: "Alex Reed", role: "Joint Secretary", category: "sec", img: "" },
 
-            // Add active class to clicked button
-            btn.classList.add('active');
+        // LEADS
+        { name: "Kabir Kohl", role: "Technical Lead", category: "leads", img: "" },
+        { name: "Sanya Joy", role: "Event Manager", category: "leads", img: "" },
 
-            // Show corresponding content
-            const tabId = btn.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
-        });
+        // CORE
+        { name: "Rahul Dev", role: "Core Member", category: "core", img: "" },
+        { name: "Priya Das", role: "Core Member", category: "core", img: "" }
+    ];
+
+    // Clear and Fill Grids
+    const categories = ['exec', 'sec', 'leads', 'core'];
+    categories.forEach(cat => {
+        const grid = document.getElementById(`${cat}-grid`);
+        if (grid) {
+            grid.innerHTML = ''; // Pehle purana kachra saaf
+            const filtered = teamMembers.filter(m => m.category === cat);
+            grid.innerHTML = filtered.map(m => `
+                <div class="member-card">
+                    <div class="img-circle">
+                        <img src="${m.img || 'https://via.placeholder.com/150'}" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <h3>${m.name}</h3>
+                    <span class="role">${m.role}</span>
+                </div>
+            `).join('');
+        }
     });
-});
+}
+
+window.addEventListener('load', fetchData);
