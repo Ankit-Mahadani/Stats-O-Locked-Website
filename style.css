@@ -1,20 +1,5 @@
 :root {
-    --bg-color: #020b16;
-    /* Deep Navy */
-    --primary-color: #00f0ff;
-    /* Neon Cyan */
-    --secondary-color: #7000ff;
-    /* Neon Purple/Blue accent */
-    --text-color: #e0e6ed;
-    --text-muted: #94a3b8;
-    --glass-bg: rgba(2, 11, 22, 0.7);
-    --glass-border: rgba(0, 240, 255, 0.2);
-    --card-bg: rgba(255, 255, 255, 0.03);
-
-    --font-heading: 'Space Grotesk', sans-serif;
-    --font-body: 'Outfit', sans-serif;
-
-    --transition-speed: 0.3s;
+   speed: 0.3s;
 }
 
 * {
@@ -22,13 +7,9 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-body);
-    overflow-x: hidden;
-    line-height: 1.6;
+    background-color: #020b16 !important;
+    color: #e0e6ed !important;
 }
 
 /* Background Canvas */
@@ -2142,3 +2123,124 @@ footer {
         clip: rect(69px, 9999px, 62px, 0);
     }
 }
+/* ==========================================================================
+/* ==========================================================================
+   TEAM PAGE - FINAL FORCE-SHOW FIX (PASTE AT THE VERY END)
+   ========================================================================== */
+
+/* 1. Global Container & Title Glow */
+.container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-page-title {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: clamp(3.5rem, 12vw, 5.5rem) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 6px !important;
+    margin: 160px 0 70px !important;
+    color: #ffffff !important;
+    text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 40px #00f0ff, 0 0 80px rgba(0, 240, 255, 0.7) !important;
+    display: block !important;
+}
+
+/* 2. Tier Label Centering */
+.tier-section { 
+    margin-bottom: 100px !important; 
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tier-label {
+    font-family: 'Space Grotesk', sans-serif !important;
+    color: #00f0ff !important;
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    margin-bottom: 50px !important;
+    font-size: 1.2rem !important;
+    display: inline-block !important;
+    border-bottom: 2px solid #00f0ff !important;
+    padding: 0 20px 10px !important;
+}
+
+/* 3. Grid System (Auto-expanding) */
+.team-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 320px)) !important;
+    justify-content: center !important;
+    gap: 40px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    min-height: 100px !important; /* Force visible if JS is slow */
+}
+
+/* 4. MEMBER CARD - FORCE VISIBILITY (Main Fix) */
+.member-card, .team-card {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(0, 240, 255, 0.2) !important;
+    padding: 40px 20px !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(15px) !important;
+    transition: all 0.4s ease !important;
+    text-align: center !important;
+    
+    /* FORCE SHOW: Isse cards gayab nahi honge */
+    opacity: 1 !important; 
+    visibility: visible !important;
+    transform: none !important;
+    display: flex !important; /* JS se flex-direction check kar lena */
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.member-card:hover {
+    transform: translateY(-12px) !important;
+    border-color: #00f0ff !important;
+    background: rgba(0, 240, 255, 0.08) !important;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.2) !important;
+}
+
+/* Profile Image Fix */
+.img-circle, .team-img {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50% !important;
+    margin-bottom: 20px !important;
+    border: 2px solid #00f0ff !important;
+    overflow: hidden !important;
+    background: #05162a !important;
+    display: block !important;
+}
+
+.img-circle img, .team-img img { 
+    width: 100% !important; 
+    height: 100% !important; 
+    object-fit: cover !important; 
+}
+
+/* Names & Roles */
+.member-card h3, .team-card h3 { 
+    font-family: 'Space Grotesk', sans-serif !important; 
+    font-size: 1.4rem !important; 
+    color: #ffffff !important; 
+    margin-bottom: 8px !important; 
+}
+
+.member-card .role, .team-card .role { 
+    color: #00f0ff !important; 
+    font-size: 0.9rem !important; 
+    text-transform: uppercase !important; 
+    letter-spacing: 1.5px !important; 
+}
+
+/* Reveal Fallback */
+.revealed { opacity: 1 !important; transform: none !important; }
