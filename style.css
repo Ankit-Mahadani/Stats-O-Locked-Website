@@ -1,18 +1,19 @@
 /* ==========================================================================
-   STATS-O-LOCKED - THE FINAL MASTER CODE (RECOVERED)
+   SOL - THE ULTIMATE REBIRTH MASTER CSS (ALL PAGES FIXED)
    ========================================================================== */
 
+/* 1. CORE SYSTEM */
 :root {
-    --primary: #00f0ff;
-    --bg-dark: #020b16;
-    --card-bg: rgba(255, 255, 255, 0.05);
+    --cyan: #00f0ff;
+    --dark: #020b16;
+    --glass: rgba(255, 255, 255, 0.05);
     --border: rgba(0, 240, 255, 0.2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--bg-dark);
+    background-color: var(--dark);
     color: #fff;
     font-family: 'Outfit', sans-serif;
     overflow-x: hidden;
@@ -21,82 +22,116 @@ body {
 
 #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; }
 
-/* --- NAVIGATION --- */
+/* 2. NAVIGATION BAR (Clean & Working) */
 .navbar {
-    position: fixed; top: 0; width: 100%; padding: 20px 0;
-    backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); z-index: 1000;
+    position: fixed; top: 0; width: 100%; padding: 15px 0;
+    backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); z-index: 9999;
 }
 .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 .logo { font-family: 'Space Grotesk'; font-size: 1.8rem; font-weight: 800; text-decoration: none; color: #fff; }
-.highlight { color: var(--primary); }
-.nav-links { display: flex; list-style: none; gap: 30px; }
-.nav-links a { text-decoration: none; color: #fff; font-weight: 500; }
-.btn-contact { border: 1px solid var(--primary); padding: 8px 20px; border-radius: 50px; }
+.highlight { color: var(--cyan); }
+.nav-links { display: flex; list-style: none; gap: 25px; align-items: center; }
+.nav-links a { text-decoration: none; color: #fff; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+.btn-contact { border: 1px solid var(--cyan); padding: 8px 20px; border-radius: 50px; color: var(--cyan) !important; }
 
-/* --- TITLES (THE HEAVY GLOW) --- */
+/* 3. MEGA GLOW TITLES */
 .section-title, .team-page-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(2.5rem, 8vw, 4.5rem);
     text-align: center; text-transform: uppercase;
-    margin-top: 140px; margin-bottom: 60px;
+    margin-top: 150px; margin-bottom: 60px;
     color: #fff;
-    text-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary), 0 0 50px rgba(0, 240, 255, 0.5);
+    text-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan), 0 0 60px rgba(0, 240, 255, 0.5);
+    display: block; width: 100%;
 }
 
-/* --- THE TEAM PAGE FIX (GOLA PHOTO & CENTERED) --- */
+/* 4. TEAM PAGE REPAIR (THE GOLA LOOK) */
+.section { padding: 60px 0; width: 100%; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
 .team-grid {
     display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
-    max-width: 1200px; margin: 0 auto; padding: 40px 20px;
+    padding: 20px 0;
 }
 
 .team-card {
-    background: var(--card-bg);
+    background: var(--glass);
     border: 1px solid var(--border);
-    backdrop-filter: blur(10px);
-    border-radius: 20px; padding: 40px 30px;
+    backdrop-filter: blur(12px);
+    border-radius: 25px; padding: 40px 30px;
     width: 300px; display: flex; flex-direction: column; align-items: center; text-align: center;
     transition: 0.4s ease;
 }
 
+.team-card:hover { transform: translateY(-10px); border-color: var(--cyan); box-shadow: 0 0 30px rgba(0, 240, 255, 0.3); }
+
 .member-photo {
-    width: 160px; height: 160px;
-    border-radius: 50%; /* GOLA */
-    border: 4px solid var(--primary);
-    margin-bottom: 20px; object-fit: cover;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+    width: 170px; height: 170px;
+    border-radius: 50% !important; /* PERFECT GOLA */
+    border: 4px solid var(--cyan);
+    margin-bottom: 25px; object-fit: cover;
+    box-shadow: 0 0 20px var(--cyan);
 }
 
-/* --- RESEARCH, EVENTS, & GRIDS --- */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.member-info h3 { font-family: 'Space Grotesk'; font-size: 1.6rem; color: #fff; margin-bottom: 5px; }
+.member-info .role { color: var(--cyan); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; }
+
+/* 5. RESEARCH & EVENTS (Grid Fix) */
 .research-grid, .events-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px; margin-top: 40px;
 }
 
 .research-card, .event-card {
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 20px; padding: 30px; transition: 0.4s;
+    background: var(--glass); border: 1px solid var(--border);
+    border-radius: 20px; padding: 35px; text-align: left;
+    transition: 0.4s; position: relative;
 }
 
-/* --- LEADERBOARD --- */
-.glass-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 25px; overflow-x: auto; }
-.leaderboard-table { width: 100%; border-collapse: collapse; }
-.leaderboard-table th { color: var(--primary); text-align: left; padding: 15px; border-bottom: 2px solid var(--border); }
-.leaderboard-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.tag {
+    display: inline-block; background: rgba(0, 240, 255, 0.1); color: var(--cyan);
+    padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;
+    border: 1px solid var(--cyan); margin-bottom: 20px;
+}
 
-/* --- FORMS & BUTTONS --- */
+/* 6. LEADERBOARD TABLE FIX */
+.glass-panel { 
+    background: var(--glass); border: 1px solid var(--border); 
+    border-radius: 25px; padding: 30px; overflow-x: auto; 
+}
+
+.leaderboard-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.leaderboard-table th { color: var(--cyan); text-align: left; padding: 18px; border-bottom: 2px solid var(--cyan); font-family: 'Space Grotesk'; }
+.leaderboard-table td { padding: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+/* 7. JOIN FORM & BUTTONS */
 input, select, textarea {
-    width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--border);
-    color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 20px;
+    width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+    color: #fff; padding: 14px; border-radius: 10px; margin-bottom: 20px; outline: none;
 }
-.btn-primary, .btn-submit {
-    background: var(--primary); color: #000; font-weight: 800; border: none;
-    padding: 12px 30px; border-radius: 50px; cursor: pointer; text-shadow: none;
-    box-shadow: 0 0 15px var(--primary); transition: 0.3s;
-}
-.btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--primary); }
 
-/* --- FOOTER --- */
-footer { padding: 60px 0 20px; border-top: 1px solid var(--border); margin-top: 100px; }
-.footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
-.copyright { text-align: center; margin-top: 40px; font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+.btn-primary, .btn-submit {
+    background: var(--cyan); color: #000; font-weight: 800; border: none;
+    padding: 14px 40px; border-radius: 50px; cursor: pointer; text-transform: uppercase;
+    box-shadow: 0 0 20px var(--cyan); transition: 0.3s; width: 100%;
+}
+
+.btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 40px var(--cyan); }
+
+/* 8. FOOTER REPAIR */
+footer { padding: 80px 0 30px; border-top: 1px solid var(--border); margin-top: 100px; background: rgba(0,0,0,0.3); }
+.footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 50px; }
+.footer-brand h3 { color: var(--cyan); font-family: 'Space Grotesk'; font-size: 1.8rem; margin-bottom: 15px; }
+.footer-links h4 { color: #fff; margin-bottom: 20px; }
+.footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; display: block; margin-bottom: 12px; transition: 0.3s; }
+.footer-links a:hover { color: var(--cyan); transform: translateX(5px); }
+.copyright { text-align: center; margin-top: 60px; font-size: 0.85rem; color: rgba(255,255,255,0.4); }
+
+/* 9. MOBILE FIXES */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .team-grid { gap: 20px; }
+    .team-card { width: 100%; }
+    .section-title { font-size: 2.8rem; }
+}
