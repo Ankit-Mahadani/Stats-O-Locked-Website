@@ -6,11 +6,393 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events | Stats-O-Locked</title>
     <link rel="stylesheet" href="style.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    
+    <style>
+        /* --- UPGRADED GLASS NAVBAR --- */
+        .navbar {
+            background: rgba(2, 11, 22, 0.4) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        .nav-links a {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- IMMERSIVE HERO BANNER --- */
+        .tech-banner-container {
+            position: relative;
+            width: calc(100% - 40px);
+            max-width: 1100px;
+            height: 300px;
+            margin: 120px auto 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.15), inset 0 0 50px rgba(0, 240, 255, 0.1);
+            z-index: 10;
+        }
+        
+        /* Deep Space / Tech Grid Background */
+        .tech-gif-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(112, 0, 255, 0.15) 0%, rgba(2, 11, 22, 0.9) 80%),
+                repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(0, 240, 255, 0.1) 30px, rgba(0, 240, 255, 0.1) 31px),
+                repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(0, 240, 255, 0.1) 30px, rgba(0, 240, 255, 0.1) 31px);
+            background-size: 100% 100%, 60px 60px, 60px 60px;
+            animation: gridMove 3s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes gridMove {
+            0% { background-position: 0 0, 0 0, 0 0; }
+            100% { background-position: 0 0, 0 60px, 60px 0; }
+        }
+        
+        .tech-gif-bg::after {
+            content: '';
+            position: absolute;
+            top: -100%; left: 0; right: 0; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 240, 255, 0.5), transparent);
+            animation: scanline 4s ease-in-out infinite;
+        }
+        
+        @keyframes scanline {
+            0% { top: -100%; }
+            50% { top: 100%; }
+            100% { top: -100%; }
+        }
+        
+        /* Glitch & 3D Title */
+        /* Glitch & 3D Title */
+        .tech-banner-title {
+            position: relative;
+            z-index: 2;
+            font-family: 'Anta', sans-serif; 
+            font-size: 5.5rem; 
+            font-weight: 400;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 8px; 
+            /* REDUCED OFFSET: Changed 4px to 2px */
+            text-shadow: 
+                2px 2px 0px rgba(112, 0, 255, 0.6),
+                -2px -2px 0px rgba(0, 240, 255, 0.6),
+                0 0 20px rgba(0, 240, 255, 0.8);
+            margin: 0;
+            text-align: center;
+            animation: titlePulse 3s infinite alternate;
+        }
+
+        @keyframes titlePulse {
+            /* REDUCED OFFSET: Changed 4px to 2px, and 6px to 3px */
+            0% { 
+                transform: scale(1); 
+                text-shadow: 2px 2px 0px rgba(112, 0, 255, 0.6), -2px -2px 0px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.8); 
+            }
+            100% { 
+                transform: scale(1.02); 
+                text-shadow: 3px 3px 0px rgba(112, 0, 255, 0.8), -3px -3px 0px rgba(0, 240, 255, 0.8), 0 0 40px rgba(0, 240, 255, 1); 
+            }
+        }
+        /* Futuristic Section Divider */
+        .section-divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0,240,255,0.8), transparent);
+            position: relative;
+            margin: -20px 0 60px 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .section-divider::after {
+            content: '';
+            width: 20px;
+            height: 6px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00f0ff;
+        }
+
+        /* --- PREMIUM EVENT CARDS --- */
+        .events-feed {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tesla-card {
+            width: 100%;
+            min-height: 480px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; 
+            padding: 50px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.02);
+            transition: border-color 0.4s;
+        }
+
+        /* Simulated Holographic/Tech Background Images */
+        /* --- UPDATED THEMES FOR BETTER TAG CONTRAST --- */
+
+        /* 1st Card: Now Electric Purple (Distinction from Green Tag) */
+        .theme-green { 
+            --card-accent: #00bbf9; /* cyan */
+            background: radial-gradient(circle at 85% 15%, rgba(123, 44, 255, 0.2) 0%, transparent 60%),
+                        linear-gradient(180deg, rgba(2, 11, 22, 0.7) 0%, rgba(2, 11, 22, 0.98) 100%);
+        }
+        
+        /* 2nd Card: Now Royal Blue (Distinction from Cyan Tag) */
+        .theme-cyan { 
+            --card-accent: #0055ff; /* Strong Blue */
+            background: radial-gradient(circle at 85% 15%, rgba(0, 85, 255, 0.2) 0%, transparent 60%),
+                        linear-gradient(180deg, rgba(2, 11, 22, 0.7) 0%, rgba(2, 11, 22, 0.98) 100%);
+        }
+        .theme-purple { 
+            --card-accent: #7b2cff; /* Vivid Purple */
+            background: radial-gradient(circle at 85% 15%, rgba(185, 128, 255, 0.2) 0%, transparent 60%),
+                        linear-gradient(180deg, rgba(2, 11, 22, 0.7) 0%, rgba(2, 11, 22, 0.98) 100%);
+        }
+
+        /* --- DYNAMIC BUTTON HOVER FIX --- */
+        
+        /* This makes the button take the color of the card's accent on hover */
+        .tesla-card:hover .cyber-btn {
+            background: var(--card-accent); /* Takes #b980ff for purple card */
+            color: #020b16 !important;    /* Makes text dark navy so it's visible */
+            border-color: var(--card-accent);
+            box-shadow: 0 0 30px var(--card-accent);
+            opacity: 1; /* Ensures it is not translucent */
+        }
+
+        /* Ensures the arrow icon also turns dark inside the filled button */
+        .tesla-card:hover .cyber-btn svg {
+            stroke: #020b16; 
+            transform: translateX(8px);
+        }
+        
+        /* Ensure the button text is visible even before hover */
+        .cyber-btn {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .tesla-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--card-accent);
+            box-shadow: 0 0 20px var(--card-accent);
+        }
+
+        /* --- CARD HEADER & BADGES --- */
+        .card-header {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transform: translateZ(30px); /* 3D pop */
+        }
+
+        /* Pill Status Badge */
+        /* --- UNIVERSAL STATUS BADGES --- */
+        .creative-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        /* ONGOING: Always Green */
+        .badge-live {
+            border: 1px solid #00ffaa;
+            color: #00ffaa;
+            box-shadow: 0 0 15px rgba(0, 255, 170, 0.3);
+        }
+        
+        /* UPCOMING: Always Cyan */
+        .badge-upcoming {
+            border: 1px solid #00f0ff;
+            color: #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+        
+        /* PAST: Always Red */
+        .badge-past {
+            border: 1px solid #ff4b4b;
+            color: #ff4b4b;
+            box-shadow: 0 0 15px rgba(255, 75, 75, 0.3);
+        }
+        
+        /* Ensure the dots match the badge colors */
+        .pulse-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: currentColor; /* This correctly picks up the green/cyan/red from the badge */
+            box-shadow: 0 0 15px currentColor;
+        }
+
+
+        @keyframes fastPulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.3); opacity: 1; }
+        }
+
+        /* Stylized Calendar Box */
+        .date-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 10px 15px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .date-box .month { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--card-accent); }
+        .date-box .day { font-size: 1.8rem; font-family: 'Anta', sans-serif; color: #fff; line-height: 1; margin-top: 4px; }
+
+        /* --- TYPOGRAPHY HIERARCHY --- */
+        .tesla-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.8rem;
+            color: #fff;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8), 0 0 40px rgba(var(--card-accent), 0.3);
+            transform: translateZ(40px);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-pulse {
+            display: inline-block;
+            animation: gentleHover 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes gentleHover {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-8px) scale(1.1); text-shadow: 0 0 20px var(--card-accent); }
+        }
+
+        .tesla-card p {
+            font-size: 1.15rem;
+            color: #cbd5e1; 
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 650px;
+            font-weight: 300;
+            transform: translateZ(20px);
+        }
+        .tesla-card p strong { color: #fff; font-weight: 600; }
+
+        /* --- ADVANCED BUTTON --- */
+        .cyber-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            width: fit-content;
+            padding: 16px 40px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--card-accent);
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            transform: translateZ(30px);
+            cursor: pointer;
+        }
+
+        .cyber-btn svg {
+            width: 20px; height: 20px;
+            fill: none; stroke: currentColor; stroke-width: 2;
+            transition: transform 0.3s ease;
+        }
+
+        /* --- ACCENT-AWARE BUTTON HOVER FIX --- */
+        .tesla-card:hover .cyber-btn {
+            /* Uses the card's specific theme color (Green, Cyan, or Purple) as the background */
+            background: var(--card-accent) !important; 
+            
+            /* Forces the text to a high-contrast dark color so it is visible against the bright background */
+            color: #020b16 !important; 
+            
+            /* Matches the border to the background for a solid filled look */
+            border-color: var(--card-accent) !important;
+            
+            /* Adds a glowing effect matching the card's theme */
+            box-shadow: 0 0 30px var(--card-accent);
+            
+            /* Ensures the button is fully opaque and visible */
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        /* Fixes the arrow icon color on hover to match the dark text */
+        .tesla-card:hover .cyber-btn svg {
+            stroke: #020b16 !important;
+            transform: translateX(8px);
+        }
+
+        /* Mobile Tweaks */
+        @media (max-width: 768px) {
+            .tech-banner-title { font-size: 3rem; letter-spacing: 4px; }
+            .events-feed { gap: 40px; padding-bottom: 50px; }
+            .tesla-card { padding: 30px 20px; min-height: 420px; border-radius: 16px; }
+            .card-header { top: 20px; left: 20px; right: 20px; }
+            .creative-badge { padding: 6px 12px; font-size: 0.65rem; }
+            .date-box { padding: 6px 10px; }
+            .date-box .month { font-size: 0.65rem; }
+            .date-box .day { font-size: 1.2rem; }
+            .tesla-card h2 { font-size: 2.2rem; margin-top: 60px; }
+            .tesla-card p { font-size: 1rem; margin-bottom: 30px; }
+            .cyber-btn { width: 100%; justify-content: center; }
+        }
+    </style>
 </head>
 
 <body>
@@ -18,64 +400,118 @@
 
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">SOL<span class="highlight">.</span></a>
+            <a href="index.html" class="logo">
+                <img src="logo.jpeg" alt="Stats-O-Locked Logo" style="height: 45px; width: auto; vertical-align: middle; margin-right: 12px; border-radius: 6px; box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);">
+                SOL<span class="highlight">.</span>
+            </a>
             <div class="hamburger"><span></span><span></span><span></span></div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="events.html" class="active">Events</a></li>
                 <li><a href="team.html">Team</a></li>
-                <li><a href="join.html">Join Us</a></li>
                 <li><a href="contact.html" class="btn-contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Club Events</h2>
-
-            <div class="section-subtitle">Past Events</div>
-            <div class="events-grid">
-                <!-- Event Card -->
-                <a href="event-details.html" class="event-card">
-                    <div class="card-status" style="background: rgba(255,255,255,0.1); color: var(--text-muted);">Ended
-                    </div>
-                    <h3>CTRL + LOL</h3>
-                    <div class="card-details">
-                        <span>🗓️ Feb 20 - Feb 26</span>
-                        <span>🏆 Meme Competition</span>
-                    </div>
-                    <p>Join the ultimate meme-making showdown! Check leaderboard, register, and submit your entries.</p>
-                    <span class="btn-text">View Details →</span>
-                </a>
-            </div>
-
-
-
+    <header>
+        <div class="tech-banner-container">
+            <div class="tech-gif-bg"></div>
+            <h1 class="tech-banner-title">Club Events</h1>
         </div>
-    </section>
+        <div class="section-divider"></div>
+    </header>
 
-    <footer id="contact">
+    <main class="events-feed">
+        
+        <a href="techcorp-summit.html" class="tesla-card theme-green" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare="true" data-tilt-max-glare="0.2">
+            <div class="card-header">
+                <div class="creative-badge badge-live">
+                    <span class="pulse-dot"></span> Registration Open
+                </div>
+                <div class="date-box">
+                    <span class="month">Mar</span>
+                    <span class="day">30</span>
+                </div>
+            </div>
+            <h2>Techila Unplugged <span class="icon-pulse">⚡</span></h2>
+            <p>Featured at the <strong>TechCorp Summit</strong> 💼. From Strategy to Spotlight! A premier 2-day corporate simulation testing your limits in AI implementation 🤖, decision-making, and data analysis 📊.</p>
+            <div class="cyber-btn">
+                Register Now 
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+        </a>
+
+        <a href="cultural-event.html" class="tesla-card theme-cyan" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare="true" data-tilt-max-glare="0.2">
+            <div class="card-header">
+                <div class="creative-badge badge-upcoming">
+                    <span class="pulse-dot"></span> Upcoming Event
+                </div>
+                <div class="date-box">
+                    <span class="month">Mar</span>
+                    <span class="day">31</span>
+                </div>
+            </div>
+            <h2>Recreational Event <span class="icon-pulse">🎭</span></h2>
+            <p>A grand <strong>Cultural Celebration</strong>! ✨ Showcase your talent and shine. Join the ultimate fest featuring Dance 💃, Singing 🎤, Drama 🎬, and Poetry 🖋️.</p>
+            <div class="cyber-btn">
+                Register Now 
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+        </a>
+
+        <a href="event-details.html" class="tesla-card theme-purple" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-glare="true" data-tilt-max-glare="0.2">
+            <div class="card-header">
+                <div class="creative-badge badge-past">
+                    <span class="pulse-dot"></span> Past Event
+                </div>
+                <div class="date-box" style="opacity: 0.7;">
+                    <span class="month">Feb</span>
+                    <span class="day">20</span>
+                </div>
+            </div>
+            <h2>CTRL + LOL <span class="icon-pulse">😂</span></h2>
+            <p>The ultimate tech meme-making showdown 🏆. Check out the final leaderboard and see the winning entries that debugged our sadness! 🧩</p>
+            <div class="cyber-btn" style="background: transparent;">
+                View Results 
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+        </a>
+
+    </main>
+
+    <footer id="contact" style="border-top: 1px solid rgba(255,255,255,0.05); background: #01050a; margin-top: 50px;">
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-content" style="padding-top: 50px;">
                 <div class="footer-brand">
                     <h3>Stats-O-Locked</h3>
                     <p>Innovating the Future with Data.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Connect</h4>
-                    <a href="https://www.instagram.com/sol_vitb?igsh=b2s3cGIwd3p1cXdr" target="_blank">Instagram</a>
+                    <a href="https://www.instagram.com/sol_vitb" target="_blank">Instagram</a>
                     <a href="https://www.linkedin.com/company/stats-o-locked-club" target="_blank">LinkedIn</a>
-                    <a href="mailto:solclub@vitbhopal.ac.in">Email Us</a>
+                    <a href="mailto:sol@vitbhopal.ac.in">Email Us</a>
                 </div>
             </div>
-            <div class="copyright">&copy; 2026 Stats-O-Locked.</div>
+            <div class="copyright" style="text-align: center; color: #555; padding-bottom: 30px;">&copy; 2026 Stats-O-Locked.</div>
         </div>
     </footer>
+
+    <script>
+        // Only initialize tilt on desktop devices to preserve mobile battery/performance
+        if (window.matchMedia("(min-width: 768px)").matches) {
+            VanillaTilt.init(document.querySelectorAll(".tesla-card"), {
+                max: 3,          // Max tilt rotation (degrees)
+                speed: 400,      // Speed of the enter/exit transition
+                glare: true,     // Enables glare effect
+                "max-glare": 0.15 // Opacity of glare
+            });
+        }
+    </script>
 
     <script src="background.js"></script>
     <script src="app.js"></script>
 </body>
-
 </html>
